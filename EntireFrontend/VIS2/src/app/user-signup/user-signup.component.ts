@@ -44,7 +44,7 @@ this.route.navigate(['user'])});
 
    this.customer=this.fb.group(
      {
-       username :['dsd'],
+       username :[''],
      password:[''],
      country:[''],
      state:[''],

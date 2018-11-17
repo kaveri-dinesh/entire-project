@@ -29,10 +29,10 @@
 
                 </label>
                 <div class="col-sm-9">
-                    <input type="text"   formControlName="username" pattern="as+"  placeholder="User Name" 
+                    <input type="text"   formControlName="username" pattern="[a-zA-Z+' ']{1,}"  placeholder="User Name" 
                     class="form-control" autofocus required>
                     <div *ngIf="f.username.errors" >
-                        <div *ngIf="f.username.errors" class="text-light">Enter valid user name</div>
+                        <div *ngIf="f.username.errors&&!f.username.pristine" class="dinesh">name must contain only alphabets and spaces</div>
                     </div>
             </div>
            
@@ -44,9 +44,11 @@
                 <label style="color: oldlace" for="password" class="col-sm-3 control-label">Password*</label>
 
                 <div class="col-sm-9">
-                    <input type="password"  formControlName="password" pattern="as+" placeholder="Password" class="form-control" required >
+                    <input type="password"  formControlName="password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{1,}"placeholder="Password" class="form-control" required >
                     <div *ngIf="f.password.errors" >
-                        <div *ngIf="f.password.errors" class="text-light">Enter valid user name</div>
+                        <div *ngIf="f.password.errors&&!f.password.pristine" class="dinesh">
+                            Password must contain atleast 1 small letter,1 capital letter and 1 number  
+                        </div>
                     </div>
             </div>
             
@@ -116,7 +118,10 @@
                 <div class="form-group">
                         <label style="color: oldlace" for="address"  class="col-sm-3 control-label">Address*</label>
                         <div class="col-sm-9">
-                            <textarea rows="5" formControlName="address"  placeholder="Address" class="form-control" required></textarea>
+                            <textarea rows="5" formControlName="address" pattern="[a-zA-Z+' ']{1,}" placeholder="Address" class="form-control" required></textarea>
+                            <div *ngIf="f.address.errors" >
+                                <div *ngIf="f.address.errors&&!f.address.pristine" class="dinesh">address should contain only alphabets and spaces</div>
+                            </div>
                     </div>
                 </div>
         
@@ -133,7 +138,12 @@
         <div class="form-group">
             <label style="color: oldlace" for="email" class="col-sm-3 control-label">Email* </label>
             <div class="col-sm-9">
-                <input type="email" formControlName="email"  placeholder="Email" class="form-control" required>
+                <input type="email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" formControlName="email"  placeholder="Email" class="form-control" required>
+                <div *ngIf="f.email.errors" >
+                    <div *ngIf="f.email.errors&&!f.email.pristine" class=" dinesh" >
+                      Email should be in valid format  
+                    </div>
+                </div>
             </div>
         </div>
        
@@ -150,7 +160,12 @@
         <div class="form-group">
                     <label style="color: oldlace" for="contactNumber" class="col-sm-6 control-label">Contact Number </label>
                     <div class="col-sm-9">
-                        <input type="phoneNumber" formControlName="contact_number" placeholder="Contact Number" class="form-control" required>
+                        <input type="phoneNumber" pattern='[0-9]{10}'formControlName="contact_number" placeholder="Contact Number" class="form-control" required>
+                        <div *ngIf="f.contact_number.errors" >
+                            <div *ngIf="f.contact_number.errors&&!f.contact_number.pristine" class="text-light">
+                               contact number should contain 10 digits  
+                            </div>
+                        </div>
                     </div>
                 </div>    
        
@@ -170,10 +185,7 @@
                 <span style="color:aliceblue" class="help-block">*Required fields</span>
             </div>
         </div>
-        <div>
-            {{customer.value|json}}
-            {{f.username.errors}}
-        </div>
+       
         <button type="submit"  class="btn btn-success btn-block">Register</button>
         <button type="reset" class="btn btn-primary btn-block">Reset</button>
     </form> 
